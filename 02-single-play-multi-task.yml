@@ -1,0 +1,14 @@
+---
+- name: Update web servers
+  hosts: web
+
+  tasks:
+    - name: Ensure file is downloaded
+      get_url:
+         url: https://file-examples.com/index.php/sample-documents-download/sample-doc-download/ 
+         dest: /home/ec2-user
+    - name: Ensure TCS directory created
+      file:
+       path: /home/ec2-user/TCS
+       state: directory
+...           
