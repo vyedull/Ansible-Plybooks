@@ -1,0 +1,52 @@
+---
+- name: Update web servers
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Ensure git is installed
+      yum:
+        name: git 
+        state: installed
+
+     - name: Ensure httpd is installed
+        yum:
+         name: httpd
+         state: installed
+
+    - name: Ensure httpd is started
+      service:
+         name: httpd
+         state: started
+
+    - name: Ensure web application should run
+       git:
+          repo: https://github.com/ravi2krishna/ecomm.git
+          dest: /var/www/html
+  
+
+- name : Update app servers
+  hosts: app
+  become: yes
+   
+  tasks:
+    - name: Ensure git is installed
+       yum:
+        name: git
+        state: installed
+
+     - name: Ensure httpd is installed
+        yum:
+         name: httpd
+         state: installed
+
+    - name: Ensure httpd is started
+       service:
+         name: httpd
+         state: started
+
+    - name: Ensure web application should run
+       git:
+        repo: https://github.com/ravi2krishna/food.git
+        dest: /var/www/html
+...           
